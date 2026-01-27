@@ -216,7 +216,7 @@ function CurrentMfgSlider({ label, value, onChange }: LogSliderCardProps) {
           {label}
         </div>
         <div style={{ fontSize: '20px', fontWeight: '600', color: '#000000' }}>
-          {(value / 1_000_000).toFixed(1)}M/d
+          {(value / 1_000_000).toFixed(1)}M/day
         </div>
       </div>
       <input
@@ -277,7 +277,7 @@ function PeakMfgSlider({ label, value, onChange }: LogSliderCardProps) {
           {label}
         </div>
         <div style={{ fontSize: '20px', fontWeight: '600', color: '#000000' }}>
-          {(value / 1_000_000).toFixed(1)}M/d
+          {(value / 1_000_000).toFixed(1)}M/day
         </div>
       </div>
       <input
