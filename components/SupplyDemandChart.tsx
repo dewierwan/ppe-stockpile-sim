@@ -34,7 +34,7 @@ export default function SupplyDemandChart({ results }: SupplyDemandChartProps) {
           <XAxis dataKey="day" />
           <YAxis label={{ value: 'M/day', angle: -90, position: 'insideLeft' }} />
           <Tooltip
-            formatter={(value: number) => value.toFixed(2) + 'M'}
+            formatter={(value) => (value as number).toFixed(2) + 'M'}
             labelFormatter={(label) => `Day ${label}`}
           />
           <Legend />

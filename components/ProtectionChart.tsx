@@ -40,7 +40,7 @@ export default function ProtectionChart({ results }: ProtectionChartProps) {
           <XAxis dataKey="day" />
           <YAxis domain={[0, 100]} label={{ value: '%', angle: -90, position: 'insideLeft' }} />
           <Tooltip
-            formatter={(value: number) => value.toFixed(1) + '%'}
+            formatter={(value) => (value as number).toFixed(1) + '%'}
             labelFormatter={(label) => `Day ${label}`}
           />
           <Legend />

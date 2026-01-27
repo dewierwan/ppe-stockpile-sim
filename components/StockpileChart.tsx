@@ -34,7 +34,7 @@ export default function StockpileChart({ results }: StockpileChartProps) {
           <XAxis dataKey="day" />
           <YAxis label={{ value: 'Millions', angle: -90, position: 'insideLeft' }} />
           <Tooltip
-            formatter={(value: number) => value.toFixed(0) + 'M'}
+            formatter={(value) => (value as number).toFixed(0) + 'M'}
             labelFormatter={(label) => `Day ${label}`}
           />
           <Legend />
