@@ -404,7 +404,7 @@ export default function InputControls({ params, onParamsChange }: InputControlsP
       {/* Row 2: Masks per Worker/Day, Current Mfg, Peak Mfg, Days to Peak */}
       <div style={{ display: 'flex', gap: '16px' }}>
         <LogSliderCard
-          label="Masks per Worker/Day"
+          label="3M Aura per Worker per Day"
           value={params.masksPerWorkerPerDay}
           onChange={(v) => updateParam('masksPerWorkerPerDay', v)}
         />
