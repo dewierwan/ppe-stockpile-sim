@@ -4,7 +4,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: '/ppe-stockpile-sim',
+  basePath: process.env.NODE_ENV === 'production' ? '/ppe-stockpile-sim' : '',
 }
 
 module.exports = nextConfig
