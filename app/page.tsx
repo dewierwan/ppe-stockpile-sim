@@ -27,7 +27,7 @@ export default function Home() {
             color: '#000000',
             marginBottom: '8px',
           }}>
-            3M Aura Respirator Stockpile Simulation
+            N95 Respirator Stockpile Simulation
           </h1>
         </header>
 
