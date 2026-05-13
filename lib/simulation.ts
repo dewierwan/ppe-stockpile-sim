@@ -25,9 +25,11 @@ export interface DayData {
 export interface SimulationResults {
   dailyData: DayData[];
   shortfallDay: number | null;
-  peakDailyShortfall: number;
+  peakDailyDemand: number;          // constant in this model — what critical workers need each day
+  peakDailyManufacturing: number;   // = peakManufacturingCapacity, surfaced for the gap comparison
+  peakDailyShortfall: number;       // max(0, demand - peak supply) at peak
   totalShortfall: number;
-  minProtectionRate: number; // Minimum percentage of workers protected
+  minProtectionRate: number;
 }
 
 export function runSimulation(params: SimulationParams): SimulationResults {
@@ -110,6 +112,8 @@ export function runSimulation(params: SimulationParams): SimulationResults {
   return {
     dailyData,
     shortfallDay,
+    peakDailyDemand: dailyDemand,
+    peakDailyManufacturing: peakManufacturingCapacity,
     peakDailyShortfall,
     totalShortfall,
     minProtectionRate,
