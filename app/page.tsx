@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import InputControls from '@/components/InputControls';
+import RuleOfThumbPanel from '@/components/RuleOfThumbPanel';
 import SupplyDemandChart from '@/components/SupplyDemandChart';
 import StockpileChart from '@/components/StockpileChart';
 import ProtectionChart from '@/components/ProtectionChart';
@@ -33,6 +34,11 @@ export default function Home() {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
           <InputControls params={params} onParamsChange={setParams} />
+
+          <RuleOfThumbPanel
+            params={params}
+            onApplyRecommendation={(n) => setParams({ ...params, startingStockpile: n })}
+          />
 
           <div style={{ display: 'flex', gap: '16px' }}>
             <div style={{ flex: 1 }}><SupplyDemandChart results={results} /></div>

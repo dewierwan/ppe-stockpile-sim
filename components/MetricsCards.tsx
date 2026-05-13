@@ -1,6 +1,7 @@
 'use client';
 
 import { SimulationResults } from '@/lib/simulation';
+import { formatBigNumber } from '@/lib/format';
 
 interface MetricsCardsProps {
   results: SimulationResults;
@@ -25,7 +26,7 @@ export default function MetricsCards({ results }: MetricsCardsProps) {
 
       <div style={{ flex: 1, minWidth: '200px', background: '#ffffff', border: '1px solid #e0e0e0', borderRadius: '8px', padding: '16px' }}>
         <h3 style={{ fontSize: '12px', fontWeight: '500', color: '#666666', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total Shortfall (1 Year)</h3>
-        <p style={{ fontSize: '28px', fontWeight: '700', color: '#000000' }}>{(totalShortfall / 1_000_000).toFixed(0)}M</p>
+        <p style={{ fontSize: '28px', fontWeight: '700', color: '#000000' }}>{formatBigNumber(totalShortfall)}</p>
         <p style={{ fontSize: '12px', color: '#666666', marginTop: '8px' }}>
           Cumulative unmet demand over 365 days
         </p>

@@ -12,6 +12,7 @@ import {
   ReferenceLine,
 } from 'recharts';
 import { SimulationResults } from '@/lib/simulation';
+import { formatBigNumber } from '@/lib/format';
 
 interface StockpileChartProps {
   results: SimulationResults;
@@ -22,7 +23,7 @@ export default function StockpileChart({ results }: StockpileChartProps) {
 
   const chartData = dailyData.map((day) => ({
     day: day.day,
-    stockpile: day.stockpile / 1_000_000,
+    stockpile: day.stockpile,
   }));
 
   return (
@@ -32,9 +33,9 @@ export default function StockpileChart({ results }: StockpileChartProps) {
         <LineChart data={chartData}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="day" />
-          <YAxis label={{ value: 'Millions', angle: -90, position: 'insideLeft' }} />
+          <YAxis width={70} tickFormatter={(v) => formatBigNumber(v as number)} />
           <Tooltip
-            formatter={(value) => (value as number).toFixed(0) + 'M'}
+            formatter={(value) => formatBigNumber(value as number)}
             labelFormatter={(label) => `Day ${label}`}
           />
           <Legend />

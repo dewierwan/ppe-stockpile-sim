@@ -11,6 +11,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { SimulationResults } from '@/lib/simulation';
+import { formatBigNumber, formatPerDay } from '@/lib/format';
 
 interface SupplyDemandChartProps {
   results: SimulationResults;
@@ -21,8 +22,8 @@ export default function SupplyDemandChart({ results }: SupplyDemandChartProps) {
 
   const chartData = dailyData.map((day) => ({
     day: day.day,
-    dailySupply: day.dailySupply / 1_000_000,
-    dailyDemand: day.dailyDemand / 1_000_000,
+    dailySupply: day.dailySupply,
+    dailyDemand: day.dailyDemand,
   }));
 
   return (
@@ -32,9 +33,9 @@ export default function SupplyDemandChart({ results }: SupplyDemandChartProps) {
         <LineChart data={chartData}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="day" />
-          <YAxis label={{ value: 'M/day', angle: -90, position: 'insideLeft' }} />
+          <YAxis width={70} tickFormatter={(v) => formatBigNumber(v as number)} />
           <Tooltip
-            formatter={(value) => (value as number).toFixed(2) + 'M'}
+            formatter={(value) => formatPerDay(value as number)}
             labelFormatter={(label) => `Day ${label}`}
           />
           <Legend />

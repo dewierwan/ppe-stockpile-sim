@@ -6,6 +6,10 @@ export interface SimulationParams {
   currentManufacturingCapacity: number;
   peakManufacturingCapacity: number;
   daysToPeakCapacity: number;
+  // Rule-of-thumb inputs (wastageFactor also scales actual daily demand)
+  coverageTargetDays: number;
+  wastageFactor: number; // e.g. 1.30 = 30% wastage
+  costPerRespirator: number;
 }
 
 export interface DayData {
@@ -35,11 +39,12 @@ export function runSimulation(params: SimulationParams): SimulationResults {
     currentManufacturingCapacity,
     peakManufacturingCapacity,
     daysToPeakCapacity,
+    wastageFactor,
   } = params;
 
-  // Calculate daily demand: (population × critical_worker_%) × masks per day
+  // Calculate daily demand: (population × critical_worker_%) × masks per day × wastage
   const criticalWorkers = population * (criticalWorkerPercent / 100);
-  const dailyDemand = criticalWorkers * masksPerWorkerPerDay;
+  const dailyDemand = criticalWorkers * masksPerWorkerPerDay * wastageFactor;
 
   const dailyData: DayData[] = [];
   let cumulativeDemand = 0;
@@ -126,4 +131,36 @@ export const DEFAULT_PARAMS: SimulationParams = {
   currentManufacturingCapacity: roundUpTo100k(340_000_000 * 0.002), // 0.2% of population
   peakManufacturingCapacity: roundUpTo100k(340_000_000 * 0.015), // 1.5% of population
   daysToPeakCapacity: 180,
+  coverageTargetDays: 180,
+  wastageFactor: 1.3, // 30% wastage
+  costPerRespirator: 1, // $1 per N95
 };
+
+// Shared rule-of-thumb derivation. Used by RuleOfThumbPanel and any "apply" handler.
+export interface Recommendation {
+  respirators: number;       // recommended stockpile size in masks
+  cost: number;              // total dollar cost = respirators × cost/each
+  multiplier: number;        // ratio to population (e.g. 7.0)
+}
+
+export function computeRecommendation(params: SimulationParams): Recommendation {
+  const {
+    population,
+    criticalWorkerPercent,
+    coverageTargetDays,
+    wastageFactor,
+    masksPerWorkerPerDay,
+    costPerRespirator,
+  } = params;
+  const respirators =
+    population *
+    (criticalWorkerPercent / 100) *
+    coverageTargetDays *
+    wastageFactor *
+    masksPerWorkerPerDay;
+  return {
+    respirators,
+    cost: respirators * costPerRespirator,
+    multiplier: population > 0 ? respirators / population : 0,
+  };
+}
