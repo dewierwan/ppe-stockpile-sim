@@ -131,7 +131,7 @@ export const DEFAULT_PARAMS: SimulationParams = {
   population: 340_000_000,
   criticalWorkerPercent: 10,
   startingStockpile: 340_000_000, // Matches US population
-  masksPerWorkerPerDay: 0.2,
+  masksPerWorkerPerDay: 1,
   currentManufacturingCapacity: roundUpTo100k(340_000_000 * 0.002), // 0.2% of population
   peakManufacturingCapacity: roundUpTo100k(340_000_000 * 0.015), // 1.5% of population
   daysToPeakCapacity: 180,
