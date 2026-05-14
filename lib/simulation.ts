@@ -129,7 +129,7 @@ export function roundUpTo100k(value: number): number {
 // Default parameters for US scenario
 export const DEFAULT_PARAMS: SimulationParams = {
   population: 340_000_000,
-  criticalWorkerPercent: 15,
+  criticalWorkerPercent: 10,
   startingStockpile: 340_000_000, // Matches US population
   masksPerWorkerPerDay: 0.2,
   currentManufacturingCapacity: roundUpTo100k(340_000_000 * 0.002), // 0.2% of population
